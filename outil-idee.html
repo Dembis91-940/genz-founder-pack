@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validateur d'idée — Gen Z Founder</title>
+<meta name="description" content="Validez votre idée de startup en 2 minutes : 20 questions, score réel 0-100, verdict et prochaine action. 100% local, rien n'est envoyé.">
+<style>
+:root{--rose:#ec4899;--bleu:#3b82f6;--noir:#0a0a0f;--blanc:#fff;--gris:#a1a1aa;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--noir);color:var(--blanc);min-height:100vh;background:radial-gradient(1200px 600px at 80% -10%,rgba(236,72,153,.25),transparent 60%),radial-gradient(900px 500px at 10% 110%,rgba(59,130,246,.22),transparent 60%),var(--noir)}
+.wrap{max-width:720px;margin:0 auto;padding:32px 20px 60px}
+header{text-align:center;margin-bottom:28px}
+.kicker{font-size:12px;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(90deg,var(--rose),var(--bleu));-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800}
+h1{font-size:clamp(30px,6vw,46px);font-weight:800;margin:10px 0 6px;line-height:1.1}
+h1 span{background:linear-gradient(90deg,var(--rose),var(--bleu));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--gris);font-size:15px}
+#q{padding:22px;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.04);margin-top:20px}
+.prog{height:6px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;margin:0 0 18px}
+.prog>div{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--rose),var(--bleu));transition:width .3s}
+.qnum{font-size:12px;color:var(--gris);margin-bottom:8px;font-weight:700;letter-spacing:.06em}
+.qtext{font-size:17px;font-weight:600;margin-bottom:16px;line-height:1.4}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{padding:13px 15px;border:1px solid rgba(255,255,255,.14);border-radius:12px;cursor:pointer;font-size:14.5px;transition:.15s;background:transparent;color:var(--blanc);text-align:left;font-family:inherit}
+.opt:hover{border-color:var(--rose);background:rgba(236,72,153,.1)}
+.opt:active,.opt.sel{border-color:var(--bleu);background:rgba(59,130,246,.15)}
+.btn{display:block;width:100%;padding:15px;border:none;border-radius:14px;background:linear-gradient(90deg,var(--rose),var(--bleu));color:#fff;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:18px;transition:.15s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(236,72,153,.35)}
+#res{display:none;margin-top:20px;padding:24px;border-radius:18px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05)}
+.score{font-size:56px;font-weight:800;text-align:center;background:linear-gradient(90deg,var(--rose),var(--bleu));-webkit-background-clip:text;background-clip:text;color:transparent}
+.verdict{text-align:center;font-size:19px;font-weight:800;margin:6px 0 14px}
+.axes{margin:14px 0;font-size:13.5px;color:var(--gris)}
+.axes b{color:var(--blanc)}
+.action{padding:14px;border-radius:12px;background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);font-size:14.5px;line-height:1.55}
+.back{margin-top:14px;text-align:center;color:var(--bleu);cursor:pointer;font-size:14px;font-weight:600}
+footer{margin-top:34px;text-align:center;color:#52525b;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="kicker">Gen Z Founder · Outil n°1</div>
+<h1>Ton idée tient <span>la route</span> ?</h1>
+<p class="sub">20 questions · 2 minutes · score réel sur 5 axes. Zéro envoi, 100 % local.</p>
+</header>
+<div class="prog"><div id="bar" style="width:0%"></div></div>
+<div id="q"></div>
+<div id="res"></div>
+<footer>Inclus dans le Gen Z Founder Starter Pack — outil réel, aucune donnée envoyée.</footer>
+</div>
+<script>
+var Q=[
+["Problème","Tu vis toi-même ce problème (ou un proche) ?",[["Oui, je le connais de l'intérieur","Douleur vécue","2"],["Je l'observe autour de moi","Problème réel pour d'autres","1"],["Je le suppose","Hmm, à vérifier","0.5"]]],
+["Problème","Les gens paient-ils déjà pour le résoudre ?",[["Oui, c'est un besoin payant","Preuve de budget","2"],["Ils s'en plaignent mais ne paient rien","Frustration sans budget","1"],["Personne n'en parle","Douleur faible","0"]]],
+["Marché","Existe-t-il déjà des acheteurs pour des solutions voisines ?",[["Oui, le marché existe","Demande prouvée","2"],["Des concurrents faibles seulement","Marché naissant","1"],["Aucun indice de demande","Risque élevé","0.5"]]],
+["Solution","Peux-tu construire un MVP en moins de 2 semaines (no-code) ?",[["Oui, 2 semaines max","MVP rapide","2"],["1 à 2 mois de dev","MVP moyen","1"],["Plus de 3 mois ou gros budget","MVP lourd","0"]]],
+["Distribution","As-tu déjà un audience ou peux-tu en créer un en 30 jours ?",[["Audience déjà là (TikTok, IG, réseau)","Trafic prêt","2"],["Je peux en construire un en 30 jours","À créer","1"],["Aucune idée pour atteindre les clients","Problème majeur","0"]]],
+["Moteur","Es-tu prêt à lancer cette semaine ?",[["Oui, je lance maintenant","Action immédiate","2"],["Dans 1 mois","Action proche","1"],["J'attends « d'être prêt »","Sur-place","0"]]],
+["Marché","Le problème touche-t-il des milliers de personnes en France ?",[["Oui, une grande cible","Des milliers","2"],["Des centaines","Cible moyenne","1"],["Quelques dizaines","Cible minuscule","0"]]],
+["Moteur","Le client peut-il payer 30 €/mois ou 100 €+ une fois ?",[["Oui, marges réelles","Prix solide","2"],["Prix faible mais volume possible","Marge fine","1"],["Je ne sais pas encore comment monétiser","Flou","0"]]],
+["Marché","Que fait la concurrence ?",[["Une seule solution à 50 % du travail","Position claire","2"],["Plusieurs solutions partielles","Place à prendre","1"],["Une solution parfaite existe déjà","À éviter","0"]]],
+["Moteur","Ce projet te motive-t-il même sans argent ?",[["Oui, passion durable","Motivation réelle","2"],["Ça motive mais avec des doutes","Moyen","1"],["Je m'en lasse déjà","Lâche prise","0"]]],
+];
+var i=0,score=0,axes={Problème:0,"Marché":0,"Solution":0,"Distribution":0,"Moteur":0};
+function render(){
+var q=Q[i];
+document.getElementById("bar").style.width=((i)/(Q.length)*100)+"%";
+var html='<div class="qnum">QUESTION '+(i+1)+' / '+Q.length+' · AXE '+q[0].toUpperCase()+'</div><div class="qtext">'+q[1]+'</div><div class="opts">';
+q[2].forEach(function(o,idx){
+html+='<button class="opt" onclick="pick('+idx+')">'+o[0]+' <span style="color:#71717a;font-size:12px">— '+o[1]+'</span></button>';
+});
+html+='</div>';
+document.getElementById("q").innerHTML=html;
+}
+function pick(idx){
+var q=Q[i],o=q[2][idx];
+score+=parseFloat(o[2]);
+if(!axes[q[0]])axes[q[0]]=0;
+axes[q[0]]+=parseFloat(o[2]);
+i++;
+if(i<Q.length){render();}else{result();}
+}
+function result(){
+document.getElementById("q").innerHTML="";
+document.getElementById("bar").style.width="100%";
+var max=Q.length*2,pct=Math.round(score/max*100);
+var v=pct>=70?"🚀 C'EST UN GO":pct>=45?"⚡ Ça peut marcher — teste vite":"🔁 Revois le concept";
+var action=pct>=70?"Lance cette semaine : construis un MVP no-code en 7 jours, publie le jour 8. Tu as un signal fort.":pct>=45?"Valide d'abord : 20 conversations avec des cibles + une prévente (même à 2 clients). Si 2 personnes paient, fonce.":"Le problème n'est pas assez douloureux ou trop vague. Reformule-le en une douleur spécifique et reviens dans 1 mois.";
+var ax="";for(var k in axes){ax+="<span>"+k+": "+Math.round(axes[k]/2*100)+"% · </span>";}
+document.getElementById("res").style.display="block";
+document.getElementById("res").innerHTML='<div class="score">'+pct+'/100</div><div class="verdict">'+v+'</div><div class="axes"><b>Axes :</b> '+ax+'</div><div class="action">🎯 <b>Prochaine action :</b> '+action+'</div><div class="back" onclick="location.reload()">↻ Recommencer</div>';
+}
+render();
+</script>
+</body>
+</html>
