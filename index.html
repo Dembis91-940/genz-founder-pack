@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gen Z Founder Starter Pack — De l'idée à ta première vente en 30 jours, sans budget</title>
+<title>Gen Z Founder Starter Pack — De l'idée à la première vente en 30 jours</title>
 <meta name="description" content="La méthode 30 jours pour lancer ta startup sans budget : idée validée, MVP no-code, visibilité TikTok & Instagram, première vente. Formation PDF + templates prêts à l'emploi. Dès 19 €.">
 <meta name="keywords" content="startup, gen z, entrepreneur, lancer sa startup, MVP no-code, première vente, business en ligne, TikTok, formation entrepreneur">
 <meta name="author" content="Gen Z Founder">
@@ -996,12 +996,12 @@ a{transition:color .3s ease}
     d.style.background='radial-gradient(circle,'+orbs[i]+',transparent 60%)';o.appendChild(d);}
   document.body.appendChild(o);
   addEventListener('scroll',function(){var h=document.documentElement;var sc=(h.scrollTop||document.body.scrollTop);var m=h.scrollHeight-h.clientHeight;p.style.width=(m>0?(sc/m*100):0)+'%';},{passive:true});
-  var sel=null;
+  var sel=".hero,.method,.contact,.cta-final";
   if(!sel)return;
   var els=document.querySelectorAll(sel);
   if(!('IntersectionObserver' in window)){for(var i=0;i<els.length;i++)els[i].classList.add('f3-in');return;}
   for(var i=0;i<els.length;i++)els[i].classList.add('f3-reveal');
-  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('f3-in');io.unobserve(en.target);}});},{threshold:.1});
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting||en.target.getBoundingClientRect().top<innerHeight){en.target.classList.add('f3-in');io.unobserve(en.target);}});},{threshold:.1});
   for(var i=0;i<els.length;i++)io.observe(els[i]);
 })();
 </script></body>
